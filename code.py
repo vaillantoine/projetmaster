@@ -16,7 +16,9 @@ DEBUG = True
 
 class CustomImageDataset(Dataset):
     def __init__(self, annotation_file, img_dir, transform=None, target_transform=None):
-        gen_csv()
+        path_csv = '/'.join(annotation_file.split('/').pop())
+        gen_csv(img_dir, path_csv)
+
         self.img_labels = pd.read_csv(annotation_file)
         self.img_dir = img_dir
         self.transform = transform
