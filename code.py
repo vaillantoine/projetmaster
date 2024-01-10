@@ -5,7 +5,7 @@ import os
 import pandas as pd
 
 from torch import nn
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, Dataset
 from torchvision import datasets
 from torchvision.io import read_image
 from torchvision.transforms import ToTensor, Lambda, Compose
@@ -52,4 +52,5 @@ def gen_csv(img_dir, path_csv):
     if DEBUG:
         print(csv)
 
-    csv.to_csv(index=False)
+    with os.chdir(path_csv):
+        csv.to_csv(index=False)
