@@ -17,7 +17,7 @@ def reformat_img_name(img_dir):
         mark = folder.split('/')[-1]
         os.chdir(folder)
         for img in os.listdir():
-            if img[:6] != mark:
+            if img[:len(mark)] != mark:
                 os.rename(img, mark+img)
     os.chdir(current)
 
@@ -27,8 +27,14 @@ def gen_csv(img_dir, path_csv):
     reformat_img_name(img_dir)
     list_dir = list(img_3_dir(img_dir))
     img_nobody = os.listdir(list_dir[0])
+    for i in range(len(img_nobody)):
+        img_nobody[i] = "nobody/" + img_nobody[i]
     img_no_face = os.listdir(list_dir[1])
+    for i in range(len(img_no_face)):
+        img_no_face[i] = "no_face/" + img_no_face[i]
     img_people = os.listdir(list_dir[2])
+    for i in range(len(img_people)):
+        img_people[i] = "people/" + img_people[i]
     list_labels = [0 for k in range(len(img_nobody))] + [1 for k in range(len(img_no_face))] + [2 for k in range(len(img_people))]
     img_list_name = img_nobody + img_no_face + img_people
     dict_data = {"name": img_list_name, "label": list_labels}

@@ -20,7 +20,7 @@ class CustomImageDataset(Dataset):
         utils.file.gen_csv(img_dir, csv_dir)
         if csv_dir[-1] == '/':
             csv_dir.pop()
-        annotation_file = csv_dir + "labels.csv"
+        annotation_file = csv_dir + "/labels.csv"
 
         self.img_labels = pd.read_csv(annotation_file)
         self.img_dir = img_dir
