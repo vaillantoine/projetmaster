@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 import pandas as pd
+import utils.file
 
 from torch import nn
 from torch.utils.data import DataLoader, Dataset
@@ -10,16 +11,16 @@ from torchvision import datasets
 from torchvision.io import read_image
 from torchvision.transforms import ToTensor, Lambda, Compose
 
-import utils
-
 
 DEBUG = True
 
 
 class CustomImageDataset(Dataset):
-    def __init__(self, annotation_file, img_dir, transform=None, target_transform=None):
-        path_csv = '/'.join(annotation_file.split('/').pop())
-        utils.file.gen_csv(img_dir, path_csv)
+    def __init__(self, csv_dir, img_dir, transform=None, target_transform=None):
+        utils.file.gen_csv(img_dir, csv_dir)
+        if csv_dir[-1] == '/':
+            csv_dir.pop()
+        annotation_file = csv_dir + "labels.csv"
 
         self.img_labels = pd.read_csv(annotation_file)
         self.img_dir = img_dir
